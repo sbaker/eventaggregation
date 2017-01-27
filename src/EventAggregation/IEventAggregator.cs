@@ -6,17 +6,18 @@ namespace EventAggregation
 {
     public interface IEventAggregator
     {
-        ISubscription Subscribe<T>(string name, Action<T> callback);
+        ISubscription Subscribe<T>(Key key, Action<T> callback);
 
         bool Unsubscribe(ISubscription subscription);
     }
 
     public class EventAggregator : IEventAggregator
     {
-        private readonly ConcurrentDictionary<string, IList<ISubscription>> _subscriptions = new ConcurrentDictionary<string, IList<ISubscription>>();
+        private readonly ConcurrentDictionary<Key, IList<ISubscription>> _subscriptions = new ConcurrentDictionary<Key, IList<ISubscription>>();
 
-        public virtual ISubscription Subscribe<T>(string name, Action<T> callback)
+        public virtual ISubscription Subscribe<T>(Key key, Action<T> callback)
         {
+            //_subscriptions.AddOrUpdate(key, new[] {null});
             throw new NotImplementedException();
         }
 
