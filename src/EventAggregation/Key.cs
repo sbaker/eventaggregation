@@ -78,9 +78,18 @@ namespace EventAggregation
         }
     }
 
-    public class Key<T> : Key, IEquatable<Key<T>>, IEquatable<T>
+    public class Key<T> : Key, IEquatable<Key<T>>
     {
         public T Value { get; internal set; }
+
+        internal Key()
+        {
+        }
+
+        public Key(T value)
+        {
+            Value = value;
+        }
 
         public static implicit operator Key<T>(T value)
         {
@@ -149,7 +158,7 @@ namespace EventAggregation
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Key<T>)obj);
+            return ((IEquatable<Key<T>>)this).Equals((Key<T>)obj);
         }
 
         /// <summary>Serves as the default hash function. </summary>
@@ -167,14 +176,6 @@ namespace EventAggregation
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return EqualityComparer<T>.Default.Equals(Value, other.Value);
-        }
-
-        /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
-        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
-        /// <param name="other">An object to compare with this object.</param>
-        bool IEquatable<T>.Equals(T other)
-        {
-            return Equals(Value, other);
         }
     }
 }

@@ -2,8 +2,6 @@
 {
     public abstract class Subscription : ISubscription
     {
-        private bool _released;
-
         protected Subscription(Key key, IEventAggregator aggregator)
         {
             Key = key;
@@ -12,24 +10,20 @@
 
         public Key Key { get; protected set; }
 
+        public bool Released { get; protected set; }
+
+        public int Invocations { get; protected set; }
+
         protected IEventAggregator Aggregator { get; }
 
-        public bool Release()
+        public bool Unsubscribe()
         {
             if (Aggregator.Unsubscribe(this))
             {
-                _released = true;
+                Released = true;
             }
 
-            return _released;
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing && !_released)
-            {
-                Release();
-            }
+            return Released;
         }
 
         /// <summary>
@@ -38,6 +32,27 @@
         public void Dispose()
         {
             Dispose(true);
+        }
+
+        public virtual void Raise<T>(T data)
+        {
+            Increment();
+            RaiseCore(data);
+        }
+
+        protected abstract void RaiseCore<T>(T data);
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && !Released)
+            {
+                Unsubscribe();
+            }
+        }
+
+        protected void Increment()
+        {
+            Invocations++;
         }
     }
 }
