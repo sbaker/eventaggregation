@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EventAggregation
+namespace Eventing
 {
     public interface IEventAggregator
     {

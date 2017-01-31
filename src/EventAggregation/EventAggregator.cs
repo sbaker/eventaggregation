@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace EventAggregation
+namespace Eventing
 {
     public class EventAggregator : IEventAggregator
     {

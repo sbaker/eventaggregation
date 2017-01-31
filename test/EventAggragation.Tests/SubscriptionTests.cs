@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EventAggregation;
 using Xunit;
 
-namespace EventAggragation.Tests
+namespace Eventing.Tests
 {
     public class SubscriptionTests
     {

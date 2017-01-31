@@ -1,4 +1,4 @@
-﻿namespace EventAggregation
+﻿namespace Eventing
 {
     public abstract class Subscription : ISubscription
     {

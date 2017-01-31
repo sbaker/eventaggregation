@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace EventAggregation
+namespace Eventing
 {
-    public static class Events
+    public static class Event
     {
         private static readonly IEventAggregator Aggregator = new EventAggregator();
 

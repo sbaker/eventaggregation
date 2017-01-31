@@ -1,8 +1,7 @@
-﻿using EventAggregation;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
-namespace EventAggragation.Tests
+namespace Eventing.Tests
 {
     public class KeyTests
     {

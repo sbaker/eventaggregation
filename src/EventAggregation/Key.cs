@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EventAggregation
+namespace Eventing
 {
     public abstract class Key
     {
@@ -96,7 +96,7 @@ namespace EventAggregation
             return new Key<T> { Value = value };
         }
 
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:EventAggregation.Key`1" /> objects are equal.</summary>
+        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Eventing.Key`1" /> objects are equal.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
@@ -105,7 +105,7 @@ namespace EventAggregation
             return Equals(left, right);
         }
 
-        /// <summary>Returns a value that indicates whether two <see cref="T:EventAggregation.Key`1" /> objects have different values.</summary>
+        /// <summary>Returns a value that indicates whether two <see cref="T:Eventing.Key`1" /> objects have different values.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
