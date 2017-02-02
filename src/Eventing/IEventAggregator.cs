@@ -6,7 +6,7 @@ namespace Eventing
     {
         ISubscription Subscribe<T>(Key key, Action<T> callback);
 
-        ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback);
+        //ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback);
 
         bool Unsubscribe(ISubscription subscription);
 

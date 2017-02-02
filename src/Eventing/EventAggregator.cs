@@ -13,10 +13,10 @@ namespace Eventing
             return SubscribeCore(key, new ActionSubscription<T>(key, callback, this));
         }
 
-        public virtual ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback)
-        {
-            return SubscribeCore(key, new CallbackHandlerSubscription<T>(key, callback, this));
-        }
+        //public virtual ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback)
+        //{
+        //    return SubscribeCore(key, new CallbackHandlerSubscription<T>(key, callback, this));
+        //}
 
         public virtual bool Unsubscribe(ISubscription subscription)
         {
