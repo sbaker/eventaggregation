@@ -35,8 +35,7 @@ namespace Eventing.Tests
 
             Assert.True(sub.Unsubscribe());
         }
-
-
+        
         [Fact]
         public void SubscribeToIncrementsInvocationWhenRaisedStringKeyTest()
         {
@@ -139,6 +138,22 @@ namespace Eventing.Tests
             sub2.Dispose();
             
             Assert.True(((Subscription)sub2).Released);
+        }
+
+        [Fact]
+        public void CallbackHandlerToStringKeyTest()
+        {
+            string[] data = { "String1", "String2" };
+
+            CallbackHandler<IEnumerable<string>> callback = context => Assert.All(context.Data, s => Assert.True(data.Contains(s)));
+
+            var aggregator = new EventAggregator();
+
+            var sub = aggregator.Subscribe("my-strings", callback);
+
+            aggregator.Raise("my-strings", data);
+
+            Assert.True(sub.Unsubscribe());
         }
     }
 }

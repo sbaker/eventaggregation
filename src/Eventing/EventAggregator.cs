@@ -10,15 +10,12 @@ namespace Eventing
 
         public virtual ISubscription Subscribe<T>(Key key, Action<T> callback)
         {
-            var subscription = new EventSubscription<T>(key, callback, this);
+            return SubscribeCore(key, new ActionSubscription<T>(key, callback, this));
+        }
 
-            Subscriptions.AddOrUpdate(key, new List<ISubscription> { subscription }, (k, list) =>
-            {
-                list.Add(subscription);
-                return list;
-            });
-
-            return subscription;
+        public virtual ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback)
+        {
+            return SubscribeCore(key, new CallbackHandlerSubscription<T>(key, callback, this));
         }
 
         public virtual bool Unsubscribe(ISubscription subscription)
@@ -45,6 +42,16 @@ namespace Eventing
                     }
                 }
             }
+        }
+
+        protected virtual ISubscription SubscribeCore(Key key, ISubscription subscription)
+        {
+            Subscriptions.AddOrUpdate(key, new List<ISubscription> { subscription }, (k, list) => {
+                list.Add(subscription);
+                return list;
+            });
+
+            return subscription;
         }
     }
 }
