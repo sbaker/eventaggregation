@@ -124,11 +124,9 @@ namespace Eventing.Tests
             using (sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list => { throw new Exception(); }))
             {
                 sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
-
-                Assert.True(sub1.Unsubscribe());
             }
 
-            // Should not throw an Exception here since we unsubscribed above.
+            // Should not throw an Exception here since we disposed of the subscription above.
             aggregator.Raise("asdf", data);
 
             Assert.True(((Subscription)sub1).Released);
