@@ -16,7 +16,7 @@ namespace Eventing.Tests
 
             var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
 
-            aggregator.Raise("my-strings", data);
+            aggregator.Publish("my-strings", data);
 
             Assert.True(sub.Unsubscribe());
         }
@@ -31,11 +31,11 @@ namespace Eventing.Tests
 
             var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
 
-            Assert.Throws<ArgumentException>(() => aggregator.Raise("my-strings", invalidData));
+            Assert.Throws<ArgumentException>(() => aggregator.Publish("my-strings", invalidData));
 
             Assert.True(sub.Unsubscribe());
         }
-        
+
         [Fact]
         public void SubscribeToIncrementsInvocationWhenRaisedStringKeyTest()
         {
@@ -45,7 +45,7 @@ namespace Eventing.Tests
 
             var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
 
-            aggregator.Raise("my-strings", data);
+            aggregator.Publish("my-strings", data);
 
             Assert.Equal(1, sub.Invocations);
 
@@ -61,7 +61,7 @@ namespace Eventing.Tests
 
             var sub = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
 
-            aggregator.Raise(1, data);
+            aggregator.Publish(1, data);
 
             Assert.True(sub.Unsubscribe());
         }
@@ -80,7 +80,7 @@ namespace Eventing.Tests
 
             var sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
 
-            aggregator.Raise(1, data);
+            aggregator.Publish(1, data);
 
             Assert.True(sub1.Unsubscribe());
 
@@ -104,9 +104,9 @@ namespace Eventing.Tests
             Assert.True(sub1.Unsubscribe());
 
             // Should not throw an Exception here since we unsubscribed above.
-            aggregator.Raise("asdf", data);
+            aggregator.Publish("asdf", data);
 
-            aggregator.Raise(1, data);
+            aggregator.Publish(1, data);
 
             Assert.True(sub2.Unsubscribe());
         }
@@ -127,14 +127,14 @@ namespace Eventing.Tests
             }
 
             // Should not throw an Exception here since we disposed of the subscription above.
-            aggregator.Raise("asdf", data);
+            aggregator.Publish("asdf", data);
 
             Assert.True(((Subscription)sub1).Released);
 
-            aggregator.Raise(1, data);
+            aggregator.Publish(1, data);
 
             sub2.Dispose();
-            
+
             Assert.True(((Subscription)sub2).Released);
         }
 

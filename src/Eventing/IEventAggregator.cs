@@ -10,6 +10,6 @@ namespace Eventing
 
         bool Unsubscribe(ISubscription subscription);
 
-        void Raise<T>(Key key, T data);
+        void Publish<T>(Key key, T data);
     }
 }

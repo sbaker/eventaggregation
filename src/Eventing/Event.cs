@@ -16,9 +16,9 @@ namespace Eventing
             return Aggregator.Unsubscribe(subscription);
         }
 
-        public static void Raise<T>(Key key, T data)
+        public static void Publish<T>(Key key, T data)
         {
-            Aggregator.Raise(key, data);
+            Aggregator.Publish(key, data);
         }
     }
 }
