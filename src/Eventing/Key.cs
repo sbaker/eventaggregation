@@ -5,7 +5,7 @@ namespace Eventing
 {
     public abstract class Key
     {
-        public abstract T GetValue<T>(bool throwForInvalidConversion = false);
+        protected abstract T GetValue<T>(bool throwForInvalidConversion = false);
 
         public static implicit operator Key(int value)
         {
@@ -96,6 +96,11 @@ namespace Eventing
             return new Key<T> { Value = value };
         }
 
+        public static implicit operator T(Key<T> value)
+        {
+            return value.Value;
+        }
+
         /// <summary>Returns a value that indicates whether the values of two <see cref="T:Eventing.Key`1" /> objects are equal.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
@@ -135,7 +140,7 @@ namespace Eventing
         /// If false, which is the default, will return the default value of
         /// <typeparamref name="TResult"/>.</param>
         /// <returns></returns>
-        public override TResult GetValue<TResult>(bool throwForInvalidConversion = false)
+        protected override TResult GetValue<TResult>(bool throwForInvalidConversion = false)
         {
             if (Value is TResult)
             {

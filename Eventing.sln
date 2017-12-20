@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82794D67-6AE4-4877-89D4-53E00F4B360E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7651C203-2F29-473A-BEC3-176B3DC5A962}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8C1CAF03-D29B-46CB-A8BD-0925FEAF5B68}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Eventing", "src\Eventing\Eventing.xproj", "{A55E8E76-049E-4EAE-870A-A10398D6610A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventing", "src\Eventing\Eventing.csproj", "{A55E8E76-049E-4EAE-870A-A10398D6610A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Eventing.Tests", "test\Eventing.Tests\Eventing.Tests.xproj", "{920C3690-5C4D-41E3-BB37-F19F77C5E401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventing.Tests", "test\Eventing.Tests\Eventing.Tests.csproj", "{920C3690-5C4D-41E3-BB37-F19F77C5E401}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,5 +34,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A55E8E76-049E-4EAE-870A-A10398D6610A} = {82794D67-6AE4-4877-89D4-53E00F4B360E}
 		{920C3690-5C4D-41E3-BB37-F19F77C5E401} = {8C1CAF03-D29B-46CB-A8BD-0925FEAF5B68}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD9C3B01-A94B-4F98-9A8B-665231CBEDF3}
 	EndGlobalSection
 EndGlobal
