@@ -14,7 +14,7 @@ namespace Eventing.Tests
 
             var aggregator = new EventAggregator();
 
-            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.Contains(s, data)));
 
             aggregator.Publish("my-strings", data);
 
@@ -29,7 +29,7 @@ namespace Eventing.Tests
 
             var aggregator = new EventAggregator();
 
-            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.Contains(s, data)));
 
             Assert.Throws<ArgumentException>(() => aggregator.Publish("my-strings", invalidData));
 
@@ -43,7 +43,7 @@ namespace Eventing.Tests
 
             var aggregator = new EventAggregator();
 
-            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub = aggregator.Subscribe<IEnumerable<string>>("my-strings", list => Assert.All(list, s => Assert.Contains(s, data)));
 
             aggregator.Publish("my-strings", data);
 
@@ -59,7 +59,7 @@ namespace Eventing.Tests
 
             var aggregator = new EventAggregator();
 
-            var sub = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.Contains(s, data)));
 
             aggregator.Publish(1, data);
 
@@ -78,7 +78,7 @@ namespace Eventing.Tests
                 throw new Exception();
             });
 
-            var sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.Contains(s, data)));
 
             aggregator.Publish(1, data);
 
@@ -99,7 +99,7 @@ namespace Eventing.Tests
                 throw new Exception();
             });
 
-            var sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
+            var sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.Contains(s, data)));
 
             Assert.True(sub1.Unsubscribe());
 
@@ -123,7 +123,7 @@ namespace Eventing.Tests
 
             using (sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list => { throw new Exception(); }))
             {
-                sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.True(data.Contains(s))));
+                sub2 = aggregator.Subscribe<IEnumerable<string>>(1, list => Assert.All(list, s => Assert.Contains(s, data)));
             }
 
             // Should not throw an Exception here since we disposed of the subscription above.
