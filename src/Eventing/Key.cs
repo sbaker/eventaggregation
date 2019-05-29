@@ -5,11 +5,11 @@ namespace Eventing
 {
     public abstract class Key
     {
-        public abstract T GetValue<T>(bool throwForInvalidConversion = false);
+        protected abstract T GetValue<T>(bool throwForInvalidConversion = false);
 
         public static implicit operator Key(int value)
         {
-            return new Key<int> { Value = value };
+            return new Key<int>(value);
         }
 
         public static implicit operator int(Key value)
@@ -19,7 +19,7 @@ namespace Eventing
 
         public static implicit operator Key(string value)
         {
-            return new Key<string> { Value = value };
+            return new Key<string>(value);
         }
 
         public static implicit operator string(Key value)
@@ -29,7 +29,7 @@ namespace Eventing
 
         public static implicit operator Key(float value)
         {
-            return new Key<float> { Value = value };
+            return new Key<float>(value);
         }
 
         public static implicit operator float(Key value)
@@ -39,7 +39,7 @@ namespace Eventing
 
         public static implicit operator Key(double value)
         {
-            return new Key<double> { Value = value };
+            return new Key<double>(value);
         }
 
         public static implicit operator double(Key value)
@@ -49,7 +49,7 @@ namespace Eventing
 
         public static implicit operator Key(long value)
         {
-            return new Key<long> { Value = value };
+            return new Key<long>(value);
         }
 
         public static implicit operator long(Key value)
@@ -59,7 +59,7 @@ namespace Eventing
 
         public static implicit operator Key(DateTime value)
         {
-            return new Key<DateTime> { Value = value };
+            return new Key<DateTime>(value);
         }
 
         public static implicit operator DateTime(Key value)
@@ -69,12 +69,22 @@ namespace Eventing
 
         public static implicit operator Key(uint value)
         {
-            return new Key<uint> { Value = value };
+            return new Key<uint>(value);
         }
 
         public static implicit operator uint(Key value)
         {
             return value.GetValue<uint>();
+        }
+
+        public static implicit operator Key(Guid value)
+        {
+            return new Key<Guid>(value);
+        }
+
+        public static implicit operator Guid(Key value)
+        {
+            return value.GetValue<Guid>();
         }
     }
 
@@ -94,6 +104,11 @@ namespace Eventing
         public static implicit operator Key<T>(T value)
         {
             return new Key<T> { Value = value };
+        }
+
+        public static implicit operator T(Key<T> value)
+        {
+            return value.Value;
         }
 
         /// <summary>Returns a value that indicates whether the values of two <see cref="T:Eventing.Key`1" /> objects are equal.</summary>
@@ -135,7 +150,7 @@ namespace Eventing
         /// If false, which is the default, will return the default value of
         /// <typeparamref name="TResult"/>.</param>
         /// <returns></returns>
-        public override TResult GetValue<TResult>(bool throwForInvalidConversion = false)
+        protected override TResult GetValue<TResult>(bool throwForInvalidConversion = false)
         {
             if (Value is TResult)
             {
@@ -147,7 +162,7 @@ namespace Eventing
                 throw new InvalidCastException($"Can't convert typeof({Value.GetType()}) to typeof({typeof(TResult)})");
             }
 
-            return default(TResult);
+            return default;
         }
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>

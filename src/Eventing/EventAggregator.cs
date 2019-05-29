@@ -10,12 +10,7 @@ namespace Eventing
 
         public virtual ISubscription Subscribe<T>(Key key, Action<T> callback)
         {
-            return SubscribeCore(key, new ActionSubscription<T>(key, callback, this));
-        }
-
-        public virtual ISubscription Subscribe<T>(Key key, CallbackHandler<T> callback)
-        {
-            return SubscribeCore(key, new CallbackHandlerSubscription<T>(key, callback, this));
+            return SubscribeCore(new ActionSubscription<T>(key, callback, this));
         }
 
         public virtual bool Unsubscribe(ISubscription subscription)
@@ -28,7 +23,7 @@ namespace Eventing
             return false;
         }
 
-        public virtual void Raise<T>(Key key, T data)
+        public virtual void Publish<T>(Key key, T data)
         {
             if (Subscriptions.ContainsKey(key))
             {
@@ -38,15 +33,15 @@ namespace Eventing
                 {
                     foreach (var subscription in list)
                     {
-                        subscription.Raise(data);
+                        subscription.Publish(data);
                     }
                 }
             }
         }
 
-        protected virtual ISubscription SubscribeCore(Key key, ISubscription subscription)
+        protected virtual ISubscription SubscribeCore(ISubscription subscription)
         {
-            Subscriptions.AddOrUpdate(key, new List<ISubscription> { subscription }, (k, list) => {
+            Subscriptions.AddOrUpdate(subscription.Key, new List<ISubscription> { subscription }, (k, list) => {
                 list.Add(subscription);
                 return list;
             });

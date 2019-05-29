@@ -34,13 +34,13 @@
             Dispose(true);
         }
 
-        public virtual void Raise<T>(T data)
+        public virtual void Publish<T>(T data)
         {
             Increment();
-            RaiseCore(data);
+            PublishCore(data);
         }
 
-        protected abstract void RaiseCore<T>(T data);
+        protected abstract void PublishCore<T>(T data);
 
         protected virtual void Dispose(bool disposing)
         {

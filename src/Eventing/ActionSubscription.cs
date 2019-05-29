@@ -11,7 +11,7 @@ namespace Eventing
 
         private Action<T> Callback { get; }
 
-        protected override void RaiseCore<TData>(TData data)
+        protected override void PublishCore<TData>(TData data)
         {
             Callback.DynamicInvoke(data);
         }
