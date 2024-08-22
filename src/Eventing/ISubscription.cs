@@ -10,6 +10,6 @@ namespace Eventing
 
         bool Unsubscribe();
 
-        void Publish<T>(T data);
+        void Invoke<T>(T data);
     }
 }

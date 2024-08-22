@@ -7,9 +7,9 @@ namespace Eventing.Tests
         [Fact]
         public void EventSubscriptionTest()
         {
-            var subscription = Event.Subscribe<string>("key", s => Assert.True(!string.IsNullOrWhiteSpace(s) && s == "Event raised."));
+            var subscription = Events.Subscribe<string>("key", s => Assert.True(!string.IsNullOrWhiteSpace(s) && s == "Event raised."));
 
-            Event.Publish("key", "Event raised.");
+            Events.Publish("key", "Event raised.");
 
             subscription.Unsubscribe();
         }

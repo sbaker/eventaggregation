@@ -24,8 +24,8 @@ namespace Eventing.Tests
         [Fact]
         public void SubscribeToThrowsWithInvalidDataStringKeyTest()
         {
-            int[] invalidData = {1, 2};
-            string[] data = { "String1", "String2" };
+            int[] invalidData = [1, 2];
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 

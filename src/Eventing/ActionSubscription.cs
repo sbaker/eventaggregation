@@ -2,18 +2,18 @@
 
 namespace Eventing
 {
-    public class ActionSubscription<T> : Subscription
+  public class ActionSubscription<T>(Key key, Action<T> callback, IEventAggregator aggregator) : Subscription(key, aggregator)
+  {
+    private Action<T> Callback { get; } = callback;
+
+    protected override void InvokeCore(object? value)
     {
-        public ActionSubscription(Key key, Action<T> callback, IEventAggregator aggregator) : base(key, aggregator)
-        {
-            Callback = callback;
-        }
+      if (value is not T data)
+      {
+        throw new ArgumentException($"Invalid data type used to publish event expecting {typeof(T)}. Invalid data type: {value?.GetType()}");
+      }
 
-        private Action<T> Callback { get; }
-
-        protected override void PublishCore<TData>(TData data)
-        {
-            Callback.DynamicInvoke(data);
-        }
+      Callback.Invoke(data);
     }
+  }
 }

@@ -2,7 +2,7 @@
 
 namespace Eventing
 {
-    public static class Event
+    public static class Events
     {
         private static readonly IEventAggregator Aggregator = new EventAggregator();
 
