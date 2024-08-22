@@ -10,7 +10,7 @@ namespace Eventing.Tests
         {
             var expected = "expected";
             Key key = "expected";
-            string actual = key;
+            string actual = ((Key<string>)key).Value;
             actual.Should().BeEquivalentTo(expected);
         }
 
@@ -19,7 +19,7 @@ namespace Eventing.Tests
         {
             var expected = 100;
             Key key = 100;
-            int actual = key;
+            int actual = ((Key<int>)key).Value; ;
             actual.Should().Be(expected);
         }
 

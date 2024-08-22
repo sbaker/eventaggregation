@@ -10,7 +10,7 @@ namespace Eventing.Tests
         [Fact]
         public void SubscribeToStringKeyTest()
         {
-            string[] data = {"String1", "String2"};
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 
@@ -39,7 +39,7 @@ namespace Eventing.Tests
         [Fact]
         public void SubscribeToIncrementsInvocationWhenRaisedStringKeyTest()
         {
-            string[] data = { "String1", "String2" };
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 
@@ -55,7 +55,7 @@ namespace Eventing.Tests
         [Fact]
         public void SubscribeToIntKeyTest()
         {
-            string[] data = { "String1", "String2" };
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 
@@ -69,11 +69,12 @@ namespace Eventing.Tests
         [Fact]
         public void MultipleSubscribeToIntKeyTest()
         {
-            string[] data = { "String1", "String2" };
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 
-            var sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list => {
+            var sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list =>
+            {
                 // Should never get here
                 throw new Exception();
             });
@@ -90,11 +91,12 @@ namespace Eventing.Tests
         [Fact]
         public void MultipleSubscribeToUnsubscribeStringKeyTest()
         {
-            string[] data = { "String1", "String2" };
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 
-            var sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list => {
+            var sub1 = aggregator.Subscribe<IEnumerable<string>>("asdf", list =>
+            {
                 // Should never get here
                 throw new Exception();
             });
@@ -114,7 +116,7 @@ namespace Eventing.Tests
         [Fact]
         public void SubscribeToDisposeUnsubscribesStringAndIntKeyTest()
         {
-            string[] data = { "String1", "String2" };
+            string[] data = ["String1", "String2"];
 
             var aggregator = new EventAggregator();
 

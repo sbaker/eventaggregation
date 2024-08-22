@@ -1,16 +1,16 @@
-﻿
-using Eventing;
+﻿using Eventing;
 
+// ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddEventing(this IServiceCollection services)
+        public static IServiceCollection AddEvents(this IServiceCollection services)
         {
-            return services.AddEventing<EventAggregator>();
+            return services.AddEvents<EventAggregator>();
         }
 
-        public static IServiceCollection AddEventing<TEventAggregator>(this IServiceCollection services) where TEventAggregator : class, IEventAggregator
+        public static IServiceCollection AddEvents<TEventAggregator>(this IServiceCollection services) where TEventAggregator : class, IEventAggregator
         {
             return services.AddSingleton<IEventAggregator, TEventAggregator>();
         }

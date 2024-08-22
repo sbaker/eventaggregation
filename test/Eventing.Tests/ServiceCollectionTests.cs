@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Eventing.Tests
@@ -10,7 +9,7 @@ namespace Eventing.Tests
         public void AddEventingSingletonTest()
         {
             IServiceCollection services = new ServiceCollection()
-                .AddEventing()
+                .AddEvents()
                 .AddTransient<TestSubscriber>();
 
             var provider = services.BuildServiceProvider();
