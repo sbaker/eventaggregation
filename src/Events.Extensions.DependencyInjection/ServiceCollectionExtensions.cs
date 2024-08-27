@@ -1,4 +1,4 @@
-﻿using Eventing;
+﻿using Events;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Eventing.Tests
+namespace Events.Tests
 {
     public class ServiceCollectionTests
     {
@@ -19,7 +19,7 @@ namespace Eventing.Tests
                 var dependent1 = scope.ServiceProvider.GetRequiredService<TestSubscriber>();
                 var dependent2 = scope.ServiceProvider.GetRequiredService<TestSubscriber>();
                 var aggregator = scope.ServiceProvider.GetRequiredService<IEventAggregator>();
-                aggregator.Publish(TestSubscriber.Key, "expected");
+                aggregator.Publish(TestSubscriber.EventId, "expected");
 
                 Assert.Equal("expected", dependent1.Value);
                 Assert.Equal(dependent1.Value, dependent2.Value);
@@ -37,15 +37,15 @@ namespace Eventing.Tests
             public TestSubscriber(IEventAggregator aggregator)
             {
                 Aggregator = aggregator;
-                Subscription = aggregator.Subscribe<string>(Key, SetValue);
+                Subscription = aggregator.Subscribe<string>(EventId, SetValue);
             }
 
-            private void SetValue(string s)
+            private void SetValue(EventContext<string> context)
             {
-                Value = s;
+                Value = context.Data;
             }
 
-            public static string Key { get; } = "test-key";
+            public static string EventId { get; } = "test-event-id";
 
             public IEventAggregator Aggregator { get; }
 

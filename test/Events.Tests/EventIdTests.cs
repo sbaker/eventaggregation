@@ -1,16 +1,16 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Eventing.Tests
+namespace Events.Tests
 {
-    public class KeyTests
+    public class EventIdTests
     {
         [Fact]
         public void ImplicitStringConversionTests()
         {
             var expected = "expected";
-            Key key = "expected";
-            string actual = ((Key<string>)key).Value;
+            EventId eventId = "expected";
+            string actual = ((EventId<string>)eventId).Value;
             actual.Should().BeEquivalentTo(expected);
         }
 
@@ -18,8 +18,8 @@ namespace Eventing.Tests
         public void ImplicitIntConversionTests()
         {
             var expected = 100;
-            Key key = 100;
-            int actual = ((Key<int>)key).Value; ;
+            EventId eventId = 100;
+            int actual = ((EventId<int>)eventId).Value; ;
             actual.Should().Be(expected);
         }
 
@@ -27,9 +27,9 @@ namespace Eventing.Tests
         public void ImplicitGenericTypeConversionTests()
         {
             var expected = new Test { Testing = true };
-            Key<Test> key = expected;
-            key.Value.Testing = false;
-            Test actual = key;
+            EventId<Test> eventId = expected;
+            eventId.Value.Testing = false;
+            Test actual = eventId;
             actual.Should().BeEquivalentTo(expected);
             actual.Testing.Should().Be(expected.Testing);
         }
