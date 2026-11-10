@@ -13,7 +13,7 @@ namespace Events
 
         public virtual ISubscription Subscribe<T>(EventId eventId, Action<EventContext<T>> callback)
         {
-            return SubscribeCore(new ActionTSubscription<T>(eventId, this, callback));
+            return SubscribeCore(new ActionSubscription<T>(eventId, this, callback));
         }
 
         public ISubscription Subscribe(EventId eventId, Func<IEventAggregator, EventId, ISubscription> registerFactory)

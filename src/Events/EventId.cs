@@ -100,7 +100,7 @@
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override string? ToString()
         {
             if (Equals(Value, default(T)))
             {
@@ -113,7 +113,7 @@
         /// <inheritdoc />
         public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
 
@@ -121,12 +121,13 @@
         }
 
         /// <inheritdoc />
-        public override int GetHashCode() => Value is null ? 0 : Comparer.GetHashCode(Value);
+        public override int GetHashCode()
+            => Value is null ? base.GetHashCode() : Comparer.GetHashCode(Value);
 
         /// <inheritdoc />
         bool IEquatable<EventId<T>>.Equals(EventId<T>? other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return Comparer.Equals(Value, other.Value);

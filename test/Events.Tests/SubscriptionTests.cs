@@ -153,7 +153,7 @@ namespace Events.Tests
             var aggregator = new EventAggregator();
 
             var sub = aggregator.Subscribe("my-strings",
-                (agg, id) => new ActionTSubscription<IEnumerable<string>>(
+                (agg, id) => new ActionSubscription<IEnumerable<string>>(
                     id,
                     aggregator,
                     c => Assert.NotEmpty(c.Data)));
